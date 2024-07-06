@@ -56,3 +56,20 @@ export HISTFILESIZE=-1
 ## Look up a term with regex recursively
 
 `grep -r /path/to/folder -e "hello world!"`
+
+## Vim - Get text from selection
+
+```vimscript
+function! g:GetVisualSelection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, col_start] = getpos("'<")[1:2]
+    let [line_end, col_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: col_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][col_start - 1:]
+    return join(lines, "\n")
+endfunction
+```
