@@ -52,3 +52,7 @@ export HISTFILESIZE=-1
 ## Copy text to X11 Clipboard
 
 `xclip -sel clip "hello world!"`
+
+## Look up a term with regex recursively
+
+`grep -r /path/to/folder -e "hello world!"`
